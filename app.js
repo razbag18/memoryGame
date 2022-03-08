@@ -49,9 +49,10 @@ const cardArray = [
   },
 ];
 const gridDisplay = document.querySelector("#grid");
+const resultDisplay = document.querySelector("#result");
 let cardsChosen = [];
 let cardsChosenIds = [];
-const cardsWon = [];
+let cardsWon = [];
 
 function createBoard() {
   cardArray.sort(() => 0.5 - Math.random());
@@ -90,8 +91,33 @@ function checkMatch() {
     cards[cardOneId].setAttribute("src", "images/back.jpeg");
     cards[cardTwoId].setAttribute("src", "images/back.jpeg");
   }
+  resultDisplay.innerHTML = cardsWon.length;
   cardsChosen = [];
   cardsChosenIds = [];
+
+  if (cardsWon.length == cardArray.length / 2) {
+    resultDisplay.innerHTML = "Congratulations you've found them all";
+    let btn = document.createElement("button");
+    btn.innerHTML = "Reset Game";
+    btn.onclick = function () {
+      resetGame(btn);
+    };
+    resultDisplay.appendChild(btn);
+  }
+}
+
+function resetGame(btn) {
+  const cards = document.querySelectorAll("#grid img");
+  cardsWon = [];
+  cardsChosen = [];
+  cardsChosenIds = [];
+  cardArray.sort(() => 0.5 - Math.random());
+  cards.forEach((card) => {
+    card.setAttribute("src", "images/back.jpeg");
+    card.addEventListener("click", flipCard);
+    gridDisplay.append(card);
+  });
+  resultDisplay.innerHTML = "";
 }
 
 function flipCard() {
