@@ -100,13 +100,13 @@ function checkMatch() {
     let btn = document.createElement("button");
     btn.innerHTML = "Reset Game";
     btn.onclick = function () {
-      resetGame(btn);
+      resetGame();
     };
     resultDisplay.appendChild(btn);
   }
 }
 
-function resetGame(btn) {
+function resetGame() {
   const cards = document.querySelectorAll("#grid img");
   cardsWon = [];
   cardsChosen = [];
